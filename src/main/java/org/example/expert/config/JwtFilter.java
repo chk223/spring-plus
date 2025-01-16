@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.expert.domain.user.enums.UserRole;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -59,6 +60,7 @@ public class JwtFilter implements Filter {
 
             httpRequest.setAttribute("userId", Long.parseLong(claims.getSubject()));
             httpRequest.setAttribute("email", claims.get("email"));
+            httpRequest.setAttribute("nickname", claims.get("nickname"));
             httpRequest.setAttribute("userRole", claims.get("userRole"));
 
             if (url.startsWith("/admin")) {

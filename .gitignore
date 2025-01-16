@@ -36,5 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 
-### properties ###
+### properties and yml###
 *.properties
+*.yml
