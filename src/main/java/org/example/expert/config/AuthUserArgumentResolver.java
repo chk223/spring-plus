@@ -7,6 +7,8 @@ import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.user.enums.UserRole;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -16,32 +18,21 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        boolean hasAuthAnnotation = parameter.getParameterAnnotation(Auth.class) != null;
-        boolean isAuthUserType = parameter.getParameterType().equals(AuthUser.class);
-
-        // @Auth 어노테이션과 AuthUser 타입이 함께 사용되지 않은 경우 예외 발생
-        if (hasAuthAnnotation != isAuthUserType) {
-            throw new AuthException("@Auth와 AuthUser 타입은 함께 사용되어야 합니다.");
-        }
-
-        return hasAuthAnnotation;
+        return parameter.hasParameterAnnotation(Auth.class)
+                && parameter.getParameterType().equals(AuthUser.class);
     }
 
     @Override
-    public Object resolveArgument(
-            @Nullable MethodParameter parameter,
-            @Nullable ModelAndViewContainer mavContainer,
-            NativeWebRequest webRequest,
-            @Nullable WebDataBinderFactory binderFactory
-    ) {
-        HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+    public Object resolveArgument(MethodParameter parameter,
+                                  ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest,
+                                  WebDataBinderFactory binderFactory) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // JwtFilter 에서 set 한 userId, email, userRole 값을 가져옴
-        Long userId = (Long) request.getAttribute("userId");
-        String email = (String) request.getAttribute("email");
-        String nickname = (String) request.getAttribute("nickname");
-        UserRole userRole = UserRole.of((String) request.getAttribute("userRole"));
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AuthException("인증 정보가 없습니다.");
+        }
 
-        return new AuthUser(userId, email, nickname, userRole);
+        return authentication.getPrincipal();
     }
 }
