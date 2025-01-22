@@ -6,10 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CommentSaveRequest {
 
     @NotBlank
     private String contents;
+
+    public CommentSaveRequest() {
+    }
+
+    public CommentSaveRequest(String contents) {
+        this.contents = contents;
+    }
+
+    public @NotBlank String getContents() {
+        return contents;
+    }
 }

@@ -19,12 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class CommentService {
 
     private final TodoRepository todoRepository;
     private final CommentRepository commentRepository;
+
+    public CommentService(TodoRepository todoRepository, CommentRepository commentRepository) {
+        this.todoRepository = todoRepository;
+        this.commentRepository = commentRepository;
+    }
 
     @Transactional
     public CommentSaveResponse saveComment(AuthUser authUser, long todoId, CommentSaveRequest commentSaveRequest) {

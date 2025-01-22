@@ -15,4 +15,16 @@ public class CommentResponse {
         this.contents = contents;
         this.user = user;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public UserResponse getUser() {
+        return user;
+    }
 }

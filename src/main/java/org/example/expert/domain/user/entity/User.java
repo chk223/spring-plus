@@ -9,7 +9,6 @@ import org.example.expert.domain.user.enums.UserRole;
 
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "users")
 public class User extends Timestamped {
 
@@ -36,6 +35,9 @@ public class User extends Timestamped {
         this.userRole = userRole;
     }
 
+    public User() {
+    }
+
     public static User fromAuthUser(AuthUser authUser) {
         return new User(authUser.getId(), authUser.getEmail(), authUser.getNickname(), authUser.getUserRole());
     }
@@ -48,5 +50,25 @@ public class User extends Timestamped {
 
     public void updateRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
     }
 }

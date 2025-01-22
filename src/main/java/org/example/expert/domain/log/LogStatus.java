@@ -12,4 +12,8 @@ public enum LogStatus {
     LogStatus(String state) {
         this.state = state;
     }
+
+    public String getState() {
+        return state;
+    }
 }

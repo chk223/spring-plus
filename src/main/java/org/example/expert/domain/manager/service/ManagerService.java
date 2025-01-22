@@ -2,6 +2,7 @@ package org.example.expert.domain.manager.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.expert.aop.AdminAccessLoggingAspect;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.log.Log;
@@ -17,6 +18,8 @@ import org.example.expert.domain.todo.repository.TodoRepository;
 import org.example.expert.domain.user.dto.response.UserResponse;
 import org.example.expert.domain.user.entity.User;
 import org.example.expert.domain.user.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
+//@Slf4j
 @Transactional(readOnly = true)
 public class ManagerService {
 
@@ -36,6 +38,13 @@ public class ManagerService {
     private final TodoRepository todoRepository;
     private final LogRepository logRepository;
 
+    public ManagerService(ManagerRepository managerRepository, UserRepository userRepository, TodoRepository todoRepository, LogRepository logRepository) {
+        this.managerRepository = managerRepository;
+        this.userRepository = userRepository;
+        this.todoRepository = todoRepository;
+        this.logRepository = logRepository;
+    }
+    private static final Logger log = LoggerFactory.getLogger(AdminAccessLoggingAspect.class);
     @Transactional
     public ManagerSaveResponse saveManager(AuthUser authUser, long todoId, ManagerSaveRequest managerSaveRequest) {
         // 일정을 만든 유저

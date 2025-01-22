@@ -17,4 +17,20 @@ public class AuthUser {
         this.nickname = nickname;
         this.userRole = userRole;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
 }

@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@RequiredArgsConstructor
 public class FilterConfig {
 
     private final JwtUtil jwtUtil;
+
+    public FilterConfig(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
 //
 //    @Bean
 //    public FilterRegistrationBean<JwtFilter> jwtFilter() {

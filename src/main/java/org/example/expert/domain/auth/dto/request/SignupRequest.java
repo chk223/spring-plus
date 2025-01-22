@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class SignupRequest {
 
     @NotBlank @Email
@@ -19,4 +17,30 @@ public class SignupRequest {
     private String nickname;
     @NotBlank
     private String userRole;
+
+    public SignupRequest(String email, String password, String nickname, String userRole) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.userRole = userRole;
+    }
+
+    public SignupRequest() {
+    }
+
+    public @NotBlank @Email String getEmail() {
+        return email;
+    }
+
+    public @NotBlank String getPassword() {
+        return password;
+    }
+
+    public @NotBlank String getNickname() {
+        return nickname;
+    }
+
+    public @NotBlank String getUserRole() {
+        return userRole;
+    }
 }

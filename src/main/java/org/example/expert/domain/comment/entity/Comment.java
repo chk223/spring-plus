@@ -9,7 +9,6 @@ import org.example.expert.domain.user.entity.User;
 
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "comments")
 public class Comment extends Timestamped {
 
@@ -29,5 +28,24 @@ public class Comment extends Timestamped {
         this.contents = contents;
         this.user = user;
         this.todo = todo;
+    }
+
+    public Comment() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Todo getTodo() {
+        return todo;
     }
 }

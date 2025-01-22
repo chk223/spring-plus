@@ -10,4 +10,8 @@ public class SignupResponse {
     public SignupResponse(String bearerToken) {
         this.bearerToken = bearerToken;
     }
+
+    public String getBearerToken() {
+        return bearerToken;
+    }
 }

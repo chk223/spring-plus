@@ -8,7 +8,6 @@ import org.example.expert.domain.user.entity.User;
 
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "managers")
 public class Manager {
 
@@ -25,5 +24,20 @@ public class Manager {
     public Manager(User user, Todo todo) {
         this.user = user;
         this.todo = todo;
+    }
+
+    public Manager() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Todo getTodo() {
+        return todo;
     }
 }

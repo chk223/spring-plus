@@ -5,8 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserNicknameChangeRequest {
     private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public UserNicknameChangeRequest() {
+    }
+
+    public UserNicknameChangeRequest(String nickname) {
+        this.nickname = nickname;
+    }
 }

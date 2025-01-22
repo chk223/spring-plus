@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
-@RequiredArgsConstructor
 public class TodoController {
 
     private final TodoService todoService;
+
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
+    }
 
     @PostMapping("/todos")
     public ResponseEntity<TodoSaveResponse> saveTodo(

@@ -10,4 +10,8 @@ public class SigninResponse {
     public SigninResponse(String bearerToken) {
         this.bearerToken = bearerToken;
     }
+
+    public String getBearerToken() {
+        return bearerToken;
+    }
 }

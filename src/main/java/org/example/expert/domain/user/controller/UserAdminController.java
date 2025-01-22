@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor
 public class UserAdminController {
 
     private final UserAdminService userAdminService;
+
+    public UserAdminController(UserAdminService userAdminService) {
+        this.userAdminService = userAdminService;
+    }
 
     @PatchMapping("/admin/users/{userId}")
     public void changeUserRole(@PathVariable long userId, @RequestBody UserRoleChangeRequest userRoleChangeRequest) {

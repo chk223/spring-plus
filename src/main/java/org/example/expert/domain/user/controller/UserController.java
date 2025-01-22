@@ -11,17 +11,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> getUser(@PathVariable long userId) {
         return ResponseEntity.ok(userService.getUser(userId));
     }
 
+    @GetMapping("/nick/{nickName}")
+    public ResponseEntity<UserResponse> getUserByNickname(@PathVariable String nickName) {
+        return ResponseEntity.ok(userService.getUserByNickname(nickName));
+    }
     @PutMapping("/nickname")
     public void changeNickname(@Auth AuthUser authUser, @RequestBody UserNicknameChangeRequest userNicknameChangeRequest) {
         userService.changeNickname(authUser.getId(), userNicknameChangeRequest);

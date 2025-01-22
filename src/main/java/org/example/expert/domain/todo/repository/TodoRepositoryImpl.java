@@ -17,9 +17,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 public class TodoRepositoryImpl implements TodoRepositoryCustom {
     private final JPAQueryFactory queryFactory;
+
+    public TodoRepositoryImpl(JPAQueryFactory queryFactory) {
+        this.queryFactory = queryFactory;
+    }
 
     @Override
     public Optional<Todo> findByIdWithUser(Long todoId) {
